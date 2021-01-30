@@ -7,29 +7,26 @@
 </head>
 <body>
     <form action="/login" method="post" id="formulario">
-        <input type="text" name="email">
-        <input type="password" name="password">
+        <input type="text" name="email" id="email">
+        <input type="password" name="password" id="password">
         <button id="boton">Enviar</button>
     </form>
 </body>
     <script>
         let boton = document.getElementById('boton');
-        let email = document.getElementsByTagName('email');
-        let password = document.getElementsByTagName('password');
+        let email = document.getElementById('email');
+        let password = document.getElementById('password');
 
         boton.addEventListener('click', function(e){
             e.preventDefault();
             let data = {
-                email: email,
-                password: password
+                email: email.value,
+                password: password.value
             }
 
-            fetch("/login", {
+            fetch("http://localhost:3000/login", {
             method: "post",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
+            headers: {'Content-Type': 'application/json'},
 
             //make sure to serialize your JSON body
             body: JSON.stringify(data)
