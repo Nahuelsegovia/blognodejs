@@ -5,7 +5,6 @@ const SearchUserController = require('../controllers/SearchUserController');
 const tokenVerify = require('../middlewares/TokenVerify');
 let user = new RegisterController();
 const bcrypt = require('bcrypt');
-const { use } = require('passport');
 
 router.get('/user/:name', function(req, res, next){
   res.render('index.html', {'name': req.params.name});
