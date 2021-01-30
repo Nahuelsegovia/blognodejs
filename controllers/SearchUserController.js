@@ -28,8 +28,8 @@ class SearchUserController{
 
                res.json({
                    'user_id': userByEmail._id,
+                   'token': token,
                    'message': 'Authenticated - 200',
-                   'token': token
                })
             }
         }
