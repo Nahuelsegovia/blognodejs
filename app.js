@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let bodyParser = require('body-parser')
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 
@@ -22,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
+app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));app.use(bodyParser.json());
 
 app.use('/', indexRouter);
 
