@@ -1,7 +1,6 @@
 const mongo = require('../database/connect');
 let user = require('../database/models/User');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
 class SearchUserController{
     constructor(){}
@@ -19,18 +18,10 @@ class SearchUserController{
             }
 
             else{
-               const payload = {
-                   check: true
-               } 
-               const token = jwt.sign(payload, 'llavecitaenlapancita', {
-                expiresIn: 1440
-               });
-
                req.session.admin = true;
                res.json({
-                   'user_id': userByEmail._id,
-                   'token': token,
-                   'message': 'Authenticated - 200',
+                   status: 'Authenticated',
+                   user_id: userByEmail._id,
                })
             }
         }
