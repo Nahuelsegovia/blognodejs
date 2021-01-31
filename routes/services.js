@@ -46,7 +46,7 @@ router.post('/create/post', function(req, res, next){
 router.get('/post/all', function(req, res, next){
     let posts = postModel.find({}, (err, result) => {
         if(err){
-            res.send(err);
+            res.status(400,).send({message: 'Upss, posts not found'});
         }
 
         else{
@@ -58,7 +58,7 @@ router.get('/post/all', function(req, res, next){
 router.get('/post/:id', function(req, res, next){
     let post = postModel.findById(req.params.id, (err, result) => {
         if(err){
-            res.send(err);
+            res.status(400,).send({message: 'Upss, post not found'});
         }
 
         else{
