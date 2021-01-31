@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var serveStatic = require('serve-static')
 let bodyParser = require('body-parser')
 const session = require('express-session');
 
@@ -32,7 +33,7 @@ app.use(session(
 }));
 
 app.use(bodyParser.json());
-
+app.use(serveStatic(path.join(__dirname, 'public/markdown/dist')))
 app.use('/', indexRouter);
 app.use('/', servicesRouter);
 
