@@ -6,8 +6,8 @@ const RegisterController = require('../controllers/RegisterController');
 const SearchUserController = require('../controllers/SearchUserController');
 const PostController = require('../controllers/PostController');
 
-router.get('/user', function(req, res, next){
-  res.render('index.html', {'name': req.params.name});
+router.get('/panel', function(req, res, next){
+  res.render('index.html');
 })
 
 router.get('/login', function(req, res, next){
