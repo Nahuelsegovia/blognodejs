@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="http://localhost:3000/simplemde.min.css">
+    <script src="http://localhost:3000/simplemde.min.js"></script>
 </head>
 <body>
     <h1>Hola {{name}}</h1>
+    <div class="" style="width: 800px;">
+        <textarea name="" id="editor"></textarea>
+    </div>
 </body>
+<script>
+    var simplemde = new SimpleMDE({ element: document.getElementById("editor") });
+</script>
 </html>
