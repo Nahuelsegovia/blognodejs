@@ -28,11 +28,20 @@ router.get('/logout', function(req, res, next){
 
 
 /*Register area*/
-router.post('/register', function(req, res, next) {
-  let user = new RegisterController();
-  let email = req.query.email;
-  let password = req.query.password;
-  let create = user.create(email, password, res);
+router.post('/register', async function(req, res, next) {
+  let userDb = require('../database/models/User');
+  let searchUser = await userDb.findOne({email: req.query.email});
+  if(searchUser){
+    res.send('User already exists');
+  }
+
+  else{
+    let user = new RegisterController();
+    let email = req.query.email;
+    let password = req.query.password;
+    let create = user.create(email, password, res);
+  }
+ 
 });
 
 module.exports = router;
