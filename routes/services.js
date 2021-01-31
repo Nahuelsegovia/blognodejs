@@ -25,7 +25,7 @@ router.post('/create/post', function(req, res, next){
     if(req.session.admin){
         let post = postModel.remove({_id:req.params.id}, (err) => {
             if(err){
-                res.send(err);
+                res.status(400,).send({message: 'Upss, post not found'});
             }
     
             else{
