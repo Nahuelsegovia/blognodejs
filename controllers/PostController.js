@@ -1,13 +1,12 @@
 const mongo = require('../database/connect');
 let post = require('../database/models/Post');
-const bcrypt = require('bcrypt');
 
 class PostController{
     constructor(){}
 
 static create(title, content, hashtag, user_id, res){
 
-    let post = new post({
+    let newPost = new post({
         title: title,
         content: content,
         hashtag: hashtag,
@@ -15,13 +14,13 @@ static create(title, content, hashtag, user_id, res){
         post_date: Date.now()
     })
 
-    post.save().then( () => {
+    newPost.save().then(() => {
         res.json({
-            message: `post ${post.title} created successfully`
+            'status': `Post ${newPost.title} created successfully`
         })
-    })
-    
+        }).catch((error) => console.log(error));
     }
+    
 }
 
 
