@@ -10,27 +10,19 @@ let user = new RegisterController();
 const bcrypt = require('bcrypt');
 
 router.get('/user', function(req, res, next){
-  req.session.admin = true;
   res.render('index.html', {'name': 'caca'})//req.params.name});
 })
 
 
-/*User's login*/
+/*User's login & logout*/
 router.post('/login', async function(req, res, next){
-  if(req.session.admin){
-    let useremail = SearchUserController.userLogin(req.body.email, req.body.password, res);
+    let useremail = SearchUserController.userLogin(req.body.email, req.body.password, res, req);
     return useremail;
-  }
-
-  else{
-    res.send('no tenes permiso papa')
-  }
-
 })
 
-router.get('/login', function(req, res, next){
+router.get('/logout', function(req, res, next){
   req.session.destroy();
-  res.render('login.html');
+  res.redirect('/user');
 })
 
 
@@ -48,12 +40,19 @@ router.post('/probar', tokenVerify, function(req, res, next){
 
 /*Post area*/
 router.post('/create/post', tokenVerify, function(req, res, next){
-  let title = req.body.title;
-  let content = req.body.content;
-  let user_id = req.body.user_id;
-  let hashtag = req.body.hashtag;
+  if(req.session.admin){
+    let title = req.body.title;
+    let content = req.body.content;
+    let user_id = req.body.user_id;
+    let hashtag = req.body.hashtag;
 
-  let post = PostController.create(title, content, hashtag, user_id, res)
-  return post;
+    let posteo = PostController.create(title, content, hashtag, user_id, res);
+    return posteo;
+  }
+
+  else {
+    res.status(403, 'Forbidden');
+  }
+  
 })
 module.exports = router;
