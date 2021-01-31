@@ -6,6 +6,7 @@ let bodyParser = require('body-parser')
 const session = require('express-session');
 
 var indexRouter = require('./routes/index');
+var servicesRouter = require('./routes/services');
 
 var app = express();
 
@@ -23,8 +24,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));app.use(bodyParser.json());
+app.use(session(
+    {secret: 'ssshhhhh',
+    saveUninitialized: true,
+    resave: true,
+    cookie: { maxAge: 8*60*60*1000},
+}));
+
+app.use(bodyParser.json());
 
 app.use('/', indexRouter);
+app.use('/', servicesRouter);
 
 module.exports = app;
