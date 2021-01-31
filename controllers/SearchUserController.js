@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 class SearchUserController{
     constructor(){}
 
-    static async userLogin(email, password, res){
+    static async userLogin(email, password, res, req){
         let userByEmail = await user.findOne({email : email});
         if(!userByEmail){
             res.json({'message': 'user not found'});
@@ -26,6 +26,7 @@ class SearchUserController{
                 expiresIn: 1440
                });
 
+               req.session.admin = true;
                res.json({
                    'user_id': userByEmail._id,
                    'token': token,
