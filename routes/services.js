@@ -8,8 +8,8 @@ router.post('/create/post', function(req, res, next){
     if(req.session.admin){
       let title = req.body.title;
       let content = req.body.content;
-      let user_id = req.body.user_id;
       let hashtag = req.body.hashtag;
+      let user_id = req.body.user_id;
   
       let posteo = PostController.create(title, content, hashtag, user_id, res);
       return posteo;
@@ -44,7 +44,8 @@ router.post('/create/post', function(req, res, next){
   })
 
 router.get('/post/all', function(req, res, next){
-    let posts = postModel.find({}, (result) => {
+    let posts = postModel.find({}, (err, result) => {
+        console.log(result);
         if(!result){
             res.status(400,).send({message: 'Upss, posts not found'});
         }
