@@ -7,11 +7,15 @@ const SearchUserController = require('../controllers/SearchUserController');
 const PostController = require('../controllers/PostController');
 
 router.get('/panel', function(req, res, next){
-  res.render('index.html');
+  res.render('panel.html');
 })
 
 router.get('/login', function(req, res, next){
   res.render('login.html');
+})
+
+router.get('/posteos', function(req, res, next){
+  res.render('post.html');
 })
 
 
