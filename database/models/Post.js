@@ -9,6 +9,10 @@ let post = mongoose.Schema({
         type: String,
         required: true,
     },
+    hashtag:{
+        type: String,
+        required: true,
+    },
     user_id: {
         type: Number,
         required: true
