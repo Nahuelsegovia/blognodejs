@@ -16,7 +16,7 @@ static create(title, content, hashtag, user_id, res){
 
     newPost.save().then(() => {
         res.json({
-            'status': `Post ${newPost.title} created successfully`
+            'status': `Post ${newPost.title} has been created successfully`
         })
         }).catch((error) => console.log(error));
     }
