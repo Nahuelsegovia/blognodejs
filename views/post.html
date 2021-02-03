@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <script src="marked.min.js"></script>
+</head>
+<body>
+    <div class="contenido">
+        <div class="pintar" id="pintar"></div>
+    </div>
+    <button id="boton"></button>
+    
+</body>
+<script>
+let boton = document.getElementById('boton');
+let posteos = [];
+
+window.onload = function(e){
+
+    fetch("http://localhost:3000/post/all", )
+    .then( (response) => { 
+        return response.json()
+    }).then((data) => {
+       for (const post of data) {
+            posteos.push(post)
+       }
+
+       for(const post of posteos){
+        console.log(post);
+        document.getElementById('pintar').innerHTML += marked(post.content);
+       }
+      
+    }).catch((e) => e);
+}
+
+
+    
+</script>
+</html>
