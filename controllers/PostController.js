@@ -7,7 +7,7 @@ class PostController{
 static create(title, content, hashtag, user_id, res){
 
     let newPost = new post({
-        title: title,
+        title: '# ' + title,
         content: content,
         hashtag: hashtag,
         user_id: user_id,
