@@ -33,7 +33,8 @@ app.use(session(
 }));
 
 app.use(bodyParser.json());
-app.use(serveStatic(path.join(__dirname, 'public/markdown/dist')))
+app.use(serveStatic(path.join(__dirname, 'public/markdown/dist')));
+app.use(serveStatic(path.join(__dirname, '/node_modules/marked/')));
 app.use('/', indexRouter);
 app.use('/', servicesRouter);
 
