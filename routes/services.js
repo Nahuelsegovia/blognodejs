@@ -1,7 +1,31 @@
 var express = require('express');
+var app  = express();
 var router = express.Router();
 const PostController = require('../controllers/PostController');
 let postModel = require('../database/models/Post');
+const multer = require('multer');
+const sharp = require('sharp');
+
+const storage = multer.diskStorage({
+
+    destination: (req, res, callback) => {
+        callback(null, './public/files');
+    },
+    filename: async (req, file, callback) => {
+        let image = file.originalname;
+        callback(null, Date.now()+ '_' +image.replace(/ /g, ""));
+    }
+})
+const upload = multer({storage}); 
+
+
+router.post('/image/upload', upload.single('formData'), (req, res) => {
+    console.log(req.file)
+    res.json({
+        image: `![](http://localhost:3000/files/${req.file.filename})`
+    })
+})
+
 
 /*Post area*/
 router.post('/create/post', function(req, res, next){
@@ -67,5 +91,6 @@ router.get('/post/:id', function(req, res, next){
         }
     } );
 });
+
 
 module.exports = router;
