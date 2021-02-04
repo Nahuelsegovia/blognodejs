@@ -11,6 +11,12 @@
 <body>
     <h1>Hola {{name}}</h1>
     <div class="" style="width: 800px;">
+
+        <form action="#" id="imagen">
+            <input type="file" name="file" id="file">
+            <button id="">Subir imagen</button>
+        </form>
+
         <form action="#" method="post">
             <input type="text" name="title" id="title">
             <textarea name="content" id="editor"></textarea>
@@ -24,11 +30,30 @@
 </body>
 <script>
     var simplemde = new SimpleMDE({ element: document.getElementById("editor") });
-    document.getElementById('pintar').innerHTML = marked('# Marked in the browser\n\nRendered by **marked**.');
             let boton = document.getElementById('boton');
                 let title = document.getElementById('title');
                 let content = document.getElementById('editor');
                 let hashtag = document.getElementById('hashtag');
+                let imagen = document.getElementById('imagen');
+                let file = document.getElementById('file');
+
+                imagen.addEventListener('submit', function(e){
+                    e.preventDefault();
+                    const formData = new FormData()
+                    const action = '/image/upload';
+                    formData.append(formData, file.files[0]);
+
+                    fetch(action, {
+                    method: "post",
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: formData
+                    })
+
+                    .then( (response) => { 
+                        return response.json()
+                    }).then((data) => console.log(data))
+                    .catch((e) => e);
+                })
 
                 boton.addEventListener('click', function(e){
                     e.preventDefault();
