@@ -4,7 +4,7 @@ var router = express.Router();
 const PostController = require('../controllers/PostController');
 let postModel = require('../database/models/Post');
 const multer = require('multer');
-const sharp = require('sharp');
+var Jimp = require('jimp');
 
 const storage = multer.diskStorage({
 
@@ -19,11 +19,13 @@ const storage = multer.diskStorage({
 const upload = multer({storage}); 
 
 
-router.post('/image/upload', upload.single('formData'), (req, res) => {
+router.post('/image/upload', upload.single('formData'), async (req, res) => {
     console.log(req.file)
-    res.json({
-        image: `![](http://localhost:3000/files/${req.file.filename})`
-    })
+    const filepath = Date.now()+req.file.filename.replace(/ /g, "")
+    const image = await Jimp.read(req.file.path)
+    image.resize(600, 500) 
+    .writeAsync(`./public/image_resize/${filepath}`);
+    res.send(`http://localhost:3000/image_resize/${filepath}`);
 })
 
 
