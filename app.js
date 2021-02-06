@@ -37,6 +37,8 @@ app.use(serveStatic(path.join(__dirname, 'public/markdown/dist')));
 app.use(serveStatic(path.join(__dirname, '/files/')));
 app.use(serveStatic(path.join(__dirname, '/image_resize/')));
 app.use(serveStatic(path.join(__dirname, '/node_modules/marked/')));
+//app.use(bodyParser.json({ limit: '50mb' }));
+//app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 app.use('/', indexRouter);
 app.use('/', servicesRouter);
 
