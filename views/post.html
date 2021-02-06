@@ -29,6 +29,7 @@ window.onload = function(e){
 
        for(const post of posteos){
         console.log(post);
+        document.getElementById('pintar').innerHTML += `<h1>${post.title}</h1>`
         document.getElementById('pintar').innerHTML += marked(post.content);
        }
       
