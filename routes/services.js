@@ -25,7 +25,9 @@ router.post('/image/upload', upload.single('formData'), async (req, res) => {
     const image = await Jimp.read(req.file.path)
     image.resize(600, 500) 
     .writeAsync(`./public/image_resize/${filepath}`)
-    res.json(`http://localhost:3000/image_resize/${filepath}`);   
+    res.json({
+        data: `![](http://localhost:3000/image_resize/${filepath})`
+    })
 })
 
 
