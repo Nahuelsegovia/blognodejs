@@ -14,9 +14,20 @@ const storage = multer.diskStorage({
     filename: async (req, file, callback) => {
         let image = file.originalname;
         callback(null, Date.now()+ '_' +image.replace(/ /g, ""));
+        
     }
 })
-const upload = multer({storage}); 
+
+const filefilter = (req, file, cb) => {
+    if(file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg"){
+        cb(null, true)
+    }    
+}
+
+const upload = multer({
+    storage : storage,
+    fileFilter: filefilter,
+}); 
 
 
 router.post('/image/upload', upload.single('formData'), async (req, res) => {
