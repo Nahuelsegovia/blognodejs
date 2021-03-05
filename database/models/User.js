@@ -15,9 +15,6 @@ let user = mongoose.Schema({
         type: Date,
         required: true,
     },
-    id: {
-        type: Number,
-    }
 })
 
 module.exports = mongoose.model('User', user);

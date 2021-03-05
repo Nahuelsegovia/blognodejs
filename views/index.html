@@ -2,18 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="http://localhost:3000/simplemde.min.css">
-    <script src="http://localhost:3000/simplemde.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Nahuel Segovia</title>
 </head>
 <body>
-    <h1>Hola {{name}}</h1>
-    <div class="" style="width: 800px;">
-        <textarea name="" id="editor"></textarea>
-    </div>
+    <header>
+        <h1>Nahuel Segovia labs</h1>
+    </header>
+    <main>
+        <div class="lista-posts" id="lista-posts">
+        </div>
+    </main>
 </body>
 <script>
-    var simplemde = new SimpleMDE({ element: document.getElementById("editor") });
+window.onload = function(e){
+let posteos = [];
+fetch("http://localhost:3000/post/all", )
+.then( (response) => { 
+    return response.json()
+}).then((data) => {
+   for (const post of data) {
+        posteos.push(post)
+   }
+
+   for(const post of posteos){
+    console.log(post);
+    document.getElementById('lista-posts').innerHTML += `
+                <div class="post-item">
+                <a href=""> <h2>*${post.title}</h2> </a>
+                <br>
+                </div>`
+   }
+  
+}).catch((e) => e);
+}
 </script>
 </html>

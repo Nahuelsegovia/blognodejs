@@ -19,9 +19,9 @@ class SearchUserController{
 
             else{
                req.session.admin = true;
+               req.session.user_id = userByEmail._id;
                res.json({
                    status: 'Authenticated',
-                   user_id: userByEmail._id,
                })
             }
         }

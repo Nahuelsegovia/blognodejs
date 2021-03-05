@@ -14,15 +14,12 @@ let post = mongoose.Schema({
         required: true,
     },
     user_id: {
-        type: Number,
+        type: String,
         required: true
     },
     post_date: {
         type: Date,
         required: true,
-    },
-    id: {
-        type: Number,
     },
 })
 

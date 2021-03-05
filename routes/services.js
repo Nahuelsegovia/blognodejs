@@ -4,7 +4,10 @@ var router = express.Router();
 const PostController = require('../controllers/PostController');
 let postModel = require('../database/models/Post');
 const multer = require('multer');
+var mongoose = require('mongoose');
 var Jimp = require('jimp');
+const NodeCache = require('node-cache');
+const myCache = new NodeCache({stdTTL: 10});
 
 const storage = multer.diskStorage({
 
@@ -49,7 +52,7 @@ router.post('/create/post', function(req, res, next){
       let title = req.body.title;
       let content = req.body.content;
       let hashtag = req.body.hashtag;
-      let user_id = req.body.user_id;
+      let user_id = req.session.user_id;
   
       let posteo = PostController.create(title, content, hashtag, user_id, res);
       return posteo;
@@ -84,20 +87,27 @@ router.post('/create/post', function(req, res, next){
   })
 
 router.get('/post/all', function(req, res, next){
-    let posts = postModel.find({}, (err, result) => {
-        console.log(result);
-        if(!result){
-            res.status(400,).send({message: 'Upss, posts not found'});
-        }
+    if(myCache.has('result')){
+        res.send(myCache.get('result'))
+    }
 
-        else{
-            res.send(result);
-        }
-    })
+    else{
+        let posts = postModel.find({}, (err, result) =>{
+            if(!result){
+                res.status(400,).send({message: 'Upss, posts not found'});
+            }
+    
+            else{
+                myCache.set('result', result);
+                res.send(result);
+            }
+        });
+    }
 })
 
 router.get('/post/:id', function(req, res, next){
-    let post = postModel.findById(req.params.id, (result) => {
+        let post = postModel.findById({_id : req.params.id}, (err, result) =>{
+
         if(!result){
             res.status(400,).send({message: 'Upss, post not found'});
         }
@@ -105,7 +115,8 @@ router.get('/post/:id', function(req, res, next){
         else{
             res.send(result);
         }
-    } );
+
+    });
 });
 
 
