@@ -21,17 +21,7 @@ router.get('/login', function(req, res, next){
 })
 
 router.get('/post/:id', function(req, res, next){
-  let post = postModel.findById({_id : req.params.id}, (err, result) =>{
-
-    if(!result){
-        res.status(400,).send({message: 'Upss, post not found'});
-    }
-
-    else{
-        res.render('post.html', {'result': result});
-    }
-
-});
+  res.render('post.html');
 })
 
 
