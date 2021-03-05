@@ -2,7 +2,7 @@ var express = require('express');
 var app  = express();
 var router = express.Router();
 const PostController = require('../controllers/PostController');
-let postModel = require('../database/models/Post');
+const postModel = require('../database/models/Post');
 const multer = require('multer');
 var mongoose = require('mongoose');
 var Jimp = require('jimp');
@@ -105,7 +105,7 @@ router.get('/post/all', function(req, res, next){
     }
 })
 
-router.get('/post/:id', function(req, res, next){
+router.get('/api/post/:id', function(req, res, next){
         let post = postModel.findById({_id : req.params.id}, (err, result) =>{
 
         if(!result){
