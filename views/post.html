@@ -4,41 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts</title>
-    <script src="marked.min.js"></script>
+    <script src="http://localhost:3000/marked.min.js"></script>
 </head>
 <body>
     <div class="contenido">
         <div class="pintar" id="pintar"></div>
     </div>
-    <button id="boton"></button>
-    {{#result}}
-        <li>{{result.title}}</li>
-    {{/result}}
+
 </body>
 <script>
-/*let boton = document.getElementById('boton');
+let boton = document.getElementById('boton');
 let posteos = [];
 
 window.onload = function(e){
-    console.log(window.location.search)
-    fetch("http://localhost:3000/post/all", )
+    const post_id = location.pathname.substring(6)
+    console.log(post_id);
+    fetch(`http://localhost:3000/api/post/${post_id}`)
     .then( (response) => { 
         return response.json()
     }).then((data) => {
-       for (const post of data) {
-            posteos.push(post)
-       }
-
-       for(const post of posteos){
-        console.log(post);
-        document.getElementById('pintar').innerHTML += `<h1>${post.title}</h1>`
-        document.getElementById('pintar').innerHTML += marked(post.content);
-       }
+      
+        document.getElementById('pintar').innerHTML += `<h1>${data.title}</h1>`
+        document.getElementById('pintar').innerHTML += marked(data.content);
       
     }).catch((e) => e);
 }
 
-*/
+
     
 </script>
 </html>
