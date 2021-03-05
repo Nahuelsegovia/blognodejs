@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const RegisterController = require('../controllers/RegisterController');
 const SearchUserController = require('../controllers/SearchUserController');
 const PostController = require('../controllers/PostController');
+const postModel = require('../database/models/Post');
 
 router.get('/', function(req, res, next){
   res.render('index.html');
@@ -19,8 +20,18 @@ router.get('/login', function(req, res, next){
   res.render('login.html');
 })
 
-router.get('/posteos', function(req, res, next){
-  res.render('post.html');
+router.get('/post/:id', function(req, res, next){
+  let post = postModel.findById({_id : req.params.id}, (err, result) =>{
+
+    if(!result){
+        res.status(400,).send({message: 'Upss, post not found'});
+    }
+
+    else{
+        res.render('post.html', {'result': result});
+    }
+
+});
 })
 
 
